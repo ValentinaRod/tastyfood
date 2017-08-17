@@ -27,12 +27,14 @@ nav{
   border-bottom: 0px !important;
   border-radius: 5px !important;
 }
+
+/*estilos imagen de perfil*/
 .and-img-profile{
-  height: 250px;
-  width: 200px;
-  margin-left: 25%;
+  max-height: 250px;
+  margin-left: 50px;
 
 }
+/*estilos boton editar "upload image"*/
 #btn-editImage{
   font-size:30px;
   color: white;
@@ -88,8 +90,9 @@ nav{
   background-color:#F39C12;
   text-decoration:none;
   color:white;
-  padding: 8px;
+  padding: 12px;
   border-radius:4px;
-  font-size:12px;
+  font-size:10px;
+  margin-right: 6px;
 }
 }
