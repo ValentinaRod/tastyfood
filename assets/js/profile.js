@@ -1,20 +1,28 @@
-// Get all variables
-var bannerImage = document.getElementById('bannerImg');
+
+$( document ).ready(function(){
+    $(".button-collapse").sideNav();
+    $("#btnSubir").hide();
+    $("#btn-editImage").click(function() {
+        $("#btnSubir").show();
+        $("#btn-editImage").hide();
+    });
+// Obtener variables
+var btnSubirImagen = document.getElementById('btnSubir');
 var result = document.getElementById('res');
 var img = document.getElementById('tableBanner');
 
 // 
-bannerImage.addEventListener('change', function() {
+btnSubirImagen.addEventListener('change', function() {
     var file = this.files[0];
-    // declare a maxSize (3Mb)
-    var maxSize = 3000000;
+    // declaro un tamaño maximo (2Mb)
+    var maxSize = 2000000;
 
     if (file.type.indexOf('image') < 0) {
         res.innerHTML = 'invalid type';
         return;
     }
-    var fReader = new FileReader();
-    fReader.onload = function() {
+    var lectorImagen = new FileReader();
+    lectorImagen.onload = function() {
         img.onload = function(){
             // if localStorage fails, it should throw an exception
             try{
@@ -34,17 +42,20 @@ bannerImage.addEventListener('change', function() {
                     else{
                         console.log('reducing png size');
                         // maxSize is a total approximation I got from some tests with a random pixel generated img
-                        var maxPxSize = 750000,
+                        var maxPxSize = 550000,
                         imgSize = (img.width*img.height);
                         localStorage.setItem("imgData", getBase64Image(img, (imgSize/maxPxSize), file.type));
                         }
                     }
                 }
             }
-        img.src = fReader.result;
+        img.src = lectorImagen.result;
+        $("#btnSubir").hide();
+        $("#btn-editImage").show();
+ 
     };
     
-    fReader.readAsDataURL(file);
+    lectorImagen.readAsDataURL(file);
 });
 
 function getBase64Image(img, sizeRatio, type, quality) {
@@ -80,3 +91,5 @@ function fetchimage () {
 
 // Call fetch to get image from localStorage.
 fetchimage();
+
+});

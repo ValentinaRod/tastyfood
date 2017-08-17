@@ -13,17 +13,60 @@
 	<link rel="stylesheet" type="text/css" href="dist/css/style.min.css">
 </head>
 <body>
-	<!-- NAV -->
-	<!-- NAV -->
-<input type="file" id="bannerImg"  />
-<img src="" id="tableBanner" />
-<div id="res"></div>
+	<!-- INICIO NAV -->
+  <nav>
+      <div class="nav-wrapper">
+          <a href="index-welcome.html"><i class="material-icons flecha">keyboard_backspace</i></a>
+          <a href="#!" class="brand-logo titulo-sing nab">PROFILE</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse right hamburguesa"><i class="material-icons">menu</i></a>
+          <ul class="side-nav" id="mobile-demo">
+              <li><a href="index-welcome.html">WELCOME</a></li>
+              <li><a href="index-search.html">SEARCH</a></li>
+              <li><a href="index-discover.html">DISCOVER</a></li>
+              <li><a href="index-profile.html">PROFILE</a></li>
+          </ul>
+      </div>
+  </nav>
+	<!-- FIN NAV -->
+  <!-- INICIO SECCIÓN IMAGEN -->
+    <img src="dist/img/3093d2a63cf2a6d4d1a6a276676d7ae7--fb-profile-facebook-profile.jpg" id="tableBanner" class="col s11 offset-s4 center and-img-profile" />
+    <div id="res"></div>
+    <div class="col s12 and-subirimg-profile"> 
+        <a href="#" id="btn-editImage"><strong class="center-align">Upload Image</strong></a>
+        <input type="file" id="btnSubir" class="and-inputsubirimg-profile" />
+    </div>
+  <!-- FIN SECCIÓN IMAGEN -->
+  <!-- INICIO SECCIÓN DATOS USUARIO -->
+  <div class="col s12 and-datosUsuario-profile">
+    <div class="and-inputDatosUsuario-profile">
+        <p class="center-align">Nombre Usuario</p>
+    </div>
+    <div class="and-inputDatosUsuario-profile" >
+        <p class="center-align">correousuario@gmail.com</p>
+    </div>
+    <div>
+      <h5 class="center-align">FAVORITES</h5>
+    </div>
+    <div>
+      <div class=" col s12 center-align and-divFavoritos-profile">
+          <a href="" class= " col s4 and-btnFaviritos-profile">LE BISTROT</a>
+          <a href="" class=" col s4 and-btnFaviritos-profile">MONTREAL</a>
+          <a href="" class="col s4 and-btnFaviritos-profile">WAN TAI</a>
+      </div>
   
-	<script src="dist/js/script.js"></script>
-  <script
+    </div>
+    
+  </div>
+  <!-- FIN SECCIÓN DATOS USUARIO -->
+
+
+   <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
   crossorigin="anonymous"></script>
+  
+	<script src="dist/js/script.js"></script>
+ 
   <script src="assets/js/profile.js"></script>
 
 
