@@ -41,7 +41,7 @@ function initMap() {
   }
   //Llamamos a la seccion de cocinerias y llenamos el select con las existentes
   function selectCocinerias(apiKey) {
-    var url = 'https://developers.zomato.com/api/v2.1/cuisines?';
+    var url = 'https://developers.zomato.com/api/v2.1/cuisines';
 
     $.ajax({
       url: url,
