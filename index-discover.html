@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.min.css">
+    <title>TastyFood</title>
+  </head>
+  <body>
+    <header class="container-flex">
+      <nav>
+        <div class="nav-wrapper">
+          <a href="search.html"><i class="material-icons flecha">keyboard_backspace</i></a>
+          <a href="#!" class="brand-logo titulo-sing nab">DISCOVER</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse right hamburguesa"><i class="material-icons">menu</i></a>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a href="index-welcome.html">WELCOME</a></li>
+            <li><a href="index-search.html">SEARCH</a></li>
+            <li><a href="index-discover.html">DISCOVER</a></li>
+            <li><a href="index-profile.html">PROFILE</a></li>
+          </ul>
+        </div>
+      </nav>
+      <select class="selectCuisines browser-default">
+        <option selected disabled>Cuisines</option>
+      </select>
+    </header>
+    <section id="mapa">
+      <div class="container">
+        <div class="row">
+          <div id="map" class="col s12">
+            <!-- Contenido desde js -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?false&callback=initMap"></script>
+    <script type="text/javascript" src="dist/js/script.js"></script>
+  </body>
+</html>
