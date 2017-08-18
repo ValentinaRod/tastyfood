@@ -20253,7 +20253,130 @@ if (jQuery) {
   };
 })(jQuery);
 
+$(document).ready(function() {
+  $(".button-collapse").sideNav();
+});
 
+function initMap() {
+  var cuisine = "";
+  var apiKey = '82734c090e0f0e10ad946c6239e028bb';
+  var latitud = -33.4573805;
+  var longitud = -70.5939723;
+  var zoom = 12;
+  var map = new google.maps.Map(document.getElementById("map"));
+  resetMap();
+
+  selectCocinerias(apiKey);
+  onMap(apiKey);
+
+  $(".selectCuisines").on("change", function(){
+    cuisine = $(this).val();
+    resetMap();
+  });
+
+  function resetMap() {
+    map = new google.maps.Map(document.getElementById("map"),{
+      zoom: zoom,
+      center: {lat: latitud, lng: longitud},
+      mapTypeControl: true,
+      zoomControl: true,
+      streetViewControl: true
+    });
+
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+      zoom = map.getZoom();
+    });
+
+    google.maps.event.addListener(map, 'idle', function(event){
+      latitud = map.getCenter().lat();
+      longitud = map.getCenter().lng();
+    });
+
+    onMap(apiKey);
+  }
+  //Llamamos a la seccion de cocinerias y llenamos el select con las existentes
+  function selectCocinerias(apiKey) {
+    var url = 'https://developers.zomato.com/api/v2.1/cuisines?';
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      beforeSend: function(request) {
+        request.setRequestHeader("user-key", apiKey);
+      },
+      dataType: 'json',
+      data: {
+        'lat': latitud,
+        'lon': longitud
+      }
+    })
+    .done(function(response){
+      response.cuisines.forEach(function(single) {
+        var id = single.cuisine.cuisine_id;
+        var cuisine = single.cuisine.cuisine_name;
+        //Aqui se toman y se ponen detro de las opciones
+        var option = `<option value="${id}">${cuisine}</option>`;
+        $(".selectCuisines").append(option);
+      })
+    })
+    .fail(function() {
+      console.log("error");
+    });
+  }
+  //Funcion que busca los locales por tipo
+  function onMap(apiKey) {
+    var url = 'https://developers.zomato.com/api/v2.1/search?';
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      beforeSend: function(request) {
+        request.setRequestHeader("user-key", apiKey);
+      },
+      dataType: 'json',
+      data: {
+        'lat': latitud,
+        'lon': longitud,
+        'entity_id' : "83",
+        'cuisines': cuisine
+      }
+    })
+    .done(function(response){
+      response.restaurants.forEach(function(single) {
+        var lat = single.restaurant.location.latitude;
+        var lon = single.restaurant.location.longitude;
+        pinLocal(lat, lon);
+      })
+    })
+    .fail(function() {
+      console.log("error");
+    })
+  }
+  //Pin que marca el local
+  function pinLocal(lat, lon) {
+    var marker = pin(map);
+    marker.setPosition(new google.maps.LatLng(lat,lon));
+    marker.setVisible(true);
+  }
+  //Creando el pin con sus valores
+  function pin(map) {
+    var icono = {
+      url: 'dist/img/pin.png',
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(35, 35)
+    };
+
+    var marker = new google.maps.Marker({
+      map: map,
+      icon: icono,
+      anchorPoint: new google.maps.Point(0, -29)
+    });
+
+    return marker;
+  }
+};
 
 
 $( document ).ready(function(){
@@ -20431,3 +20554,97 @@ $(document).ready(function(){
 
 $( document).ready(function(){
 	 $(".button-collapse").sideNav();
+
+	 //toggle del boton login
+	 //toggle del boton login
+   $('#login').on('click',function(){
+      $('#log-In').toggle('slow');
+   });
+
+
+    $("#boton-guardar").click(function(e){
+
+        function isEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+         return regex.test(email);
+        };
+        if ($("#name").val() == ""){
+            alert("ingrese nombre valido")
+        }
+
+        if ($("#email").val() == "") {
+
+            alert("ingresa tu email")
+        }
+
+        if (isEmail($("#email").val()) == false ) {
+            e.preventDefault();
+            alert("tu email no es valido")
+        
+        }
+        if ($("#pasword").val().length != 5) {
+            alert("tu clave debe ser de 5 digitos")
+        }
+
+         else {
+            e.preventDefault();
+            window.location = "index-search.html";
+        }
+    });
+
+});
+    
+$(document).ready(function(){    
+    $('#boton-guardar').click(function(){        
+        /*Captura de datos escrito en los inputs*/        
+        var nom = document.getElementById("name").value;
+        var mail = document.getElementById("email").value;
+        var pass = document.getElementById("pasword").value;
+
+        
+        /*Guardando los datos en el LocalStorage*/
+        localStorage.setItem("Nombre", nom);
+        localStorage.setItem("Correo", mail);
+        localStorage.setItem("contraseña", pass);
+     
+    window.location.href = "index-search.html";
+    });   
+});
+
+$(document).ready(function(){    
+    $('#boton-cargar').click(function(){        
+                                   
+        /*Obtener datos almacenados*/
+        var nombre = localStorage.getItem("Nombre");
+        var correo = localStorage.getItem("Correo"); 
+        var pasword = localStorage.getItem("Password"); 
+        var usuario = localStorage.getItem("Usuario");
+        var paswordLogin = localStorage.get("Contraseña");      
+       
+        /*Mostrar datos almacenados*/      
+        document.getElementById("nombre").innerHTML = nombre;
+        document.getElementById("correo").innerHTML = correo;  
+        document.getElementById("pasword").innerHTML = password; 
+        document.getElementById("usuario").innerHTML = usuario;
+        document.getElementById("passLogin").innerHTML = pass;
+
+        
+    });   
+});
+
+$(document).ready(function(){
+
+        var name = localStorage.getItem("nom");
+        var correo = localStorage.getItem("mail");
+        var contrasenia = localStorage.getItem("pass");
+
+        $("#nombre-profile").append(name);
+        $("#email-profile").append(correo);
+        
+    });
+        
+
+            
+$( document ).ready(function(){
+   $(".button-collapse").sideNav();
+})
