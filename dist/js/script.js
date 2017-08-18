@@ -20475,17 +20475,24 @@ fetchimage();
 });
 
 // SEARCH
-var myUrl = 'https://developers.zomato.com/api/v2.1/search?entity_id=';
-var key = '82734c090e0f0e10ad946c6239e028bb';
+var myUrl = 'https://developers.zomato.com/api/v2.1/search';
+var key = 'd79b356002229fc294e09c308a4c8643';
 var cityCode = ['67','73','83','97','257','280'];
 
 $(document).ready(function(){
   cityCode.forEach(function(el){
     $.ajax({
-      url: myUrl + el + '&entity_type=city&apikey=' + key,
+      url: myUrl,
       type: 'GET',
-      dataType: 'json'
-      //data: {param1: 'value1'},
+      dataType: 'json',
+      data: {
+        entity_type : 'city',
+        entity_id : el
+      },
+      beforeSend: function(request) {
+        request.setRequestHeader("user-key", key);
+      }
+
     })
     .done(function(res){
       res.restaurants.forEach(function(el){
