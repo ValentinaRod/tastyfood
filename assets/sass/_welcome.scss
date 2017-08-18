@@ -1,0 +1,33 @@
+#welcome{
+	margin:0px;
+	padding: 0px;	
+}
+.uno{
+	background-position : center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+.container-sobre{
+	background: rgba(0, 0, 0, 0.5);
+	position: relative;
+	top: -638px;
+	left: 0px;
+	height: 800px;
+}
+.titulo-welcome{
+	color: white;
+	font-weight: 700;
+	padding: 80px 0px 50px 0px;
+}
+.btn-naranjo{
+	background-color: #F39C12;
+	width: 80%;
+	font-weight: 700;
+	border-radius: 5px;
+}
+.enlace-welcome{
+	color: white; 
+	padding: 30px 0px 50px 0px;
+
+}
