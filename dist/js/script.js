@@ -20256,87 +20256,178 @@ if (jQuery) {
 
 
 
+$( document ).ready(function(){
+    $(".button-collapse").sideNav();
+    $("#btnSubir").hide();
+    $("#btn-editImage").click(function() {
+        $("#btnSubir").show();
+        $("#btn-editImage").hide();
+    });
+// Obtener variables
+var btnSubirImagen = document.getElementById('btnSubir');
+var result = document.getElementById('res');
+var img = document.getElementById('tableBanner');
+
+// 
+btnSubirImagen.addEventListener('change', function() {
+    var file = this.files[0];
+    // declaro un tamaño maximo (2Mb)
+    var maxSize = 2000000;
+
+    if (file.type.indexOf('image') < 0) {
+        res.innerHTML = 'invalid type';
+        return;
+    }
+    var lectorImagen = new FileReader();
+    lectorImagen.onload = function() {
+        img.onload = function(){
+            // if localStorage fails, it should throw an exception
+            try{
+                // pass the ratio of the file size/maxSize to your toB64 func in case we're already out of scope
+                localStorage.setItem("imgData", getBase64Image(img, (file.size/maxSize), file.type));
+                }
+            catch(e){
+                var msg = e.message.toLowerCase();
+                // We exceeded the localStorage quota
+                if(msg.indexOf('storage')>-1 || msg.indexOf('quota')>-1){
+                    // we're dealing with a jpeg image :  try to reduce the quality
+                    if(file.type.match(/jpe?g/)){
+                        console.log('reducing jpeg quality');
+                        localStorage.setItem("imgData", getBase64Image(img, (file.size/maxSize), file.type, 0.7));
+                        }
+                    // we're dealing with a png image :  try to reduce the size
+                    else{
+                        console.log('reducing png size');
+                        // maxSize is a total approximation I got from some tests with a random pixel generated img
+                        var maxPxSize = 550000,
+                        imgSize = (img.width*img.height);
+                        localStorage.setItem("imgData", getBase64Image(img, (imgSize/maxPxSize), file.type));
+                        }
+                    }
+                }
+            }
+        img.src = lectorImagen.result;
+        $("#btnSubir").hide();
+        $("#btn-editImage").show();
+ 
+    };
+    
+    lectorImagen.readAsDataURL(file);
+});
+
+function getBase64Image(img, sizeRatio, type, quality) {
+    // if we've got an svg, don't convert it, svg will certainly be less big than any pixel image
+    if(type.indexOf('svg+xml')>0) return img.src;
+
+    // if we've got a jpeg
+    if(type.match(/jpe?g/)){
+        // and the sizeRatio is okay, don't convert it
+        if(sizeRatio<=1) return img.src;
+        }
+    // if we've got some other image type
+    else type = 'image/png';
+
+    if(!quality) quality = 1;
+    var canvas = document.createElement("canvas");
+    // if our image file is too large, then reduce its size
+    canvas.width = (sizeRatio>1)?(img.width/sizeRatio): img.width;
+    canvas.height = (sizeRatio>1)?(img.height/sizeRatio): img.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    // if we already tried to reduce its size but it's still failing, then reduce the jpeg quality
+    var dataURL = canvas.toDataURL(type, quality);
+    
+    return dataURL;
+}
+
+function fetchimage () {
+    var dataImage = localStorage.getItem('imgData');
+    img.src = dataImage;
+}
+
+// Call fetch to get image from localStorage.
+fetchimage();
+
+});
+
+// SEARCH
+var myUrl = 'https://developers.zomato.com/api/v2.1/search?entity_id=';
+var key = '82734c090e0f0e10ad946c6239e028bb';
+var cityCode = ['67','73','83','97','257','280'];
+
+$(document).ready(function(){
+  cityCode.forEach(function(el){
+    $.ajax({
+      url: myUrl + el + '&entity_type=city&apikey=' + key,
+      type: 'GET',
+      dataType: 'json'
+      //data: {param1: 'value1'},
+    })
+    .done(function(res){
+      res.restaurants.forEach(function(el){
+        var name = el.restaurant.name;
+        var img = el.restaurant.thumb;
+        var elId = el.restaurant.id;
+        var type = el.restaurant.cuisines;
+        var city = el.restaurant.location.city;
+        var cityId = el.restaurant.location.city_id;
+        var address = el.restaurant.location.address;
+        var locality = el.restaurant.location.locality;
+        var currency = el.restaurant.currency;
+        var cost = el.restaurant.average_cost_for_two;
+        var rating = el.restaurant.user_rating.aggregate_rating;
+
+        if(img == ""){
+          img = 'https://cdn.pixabay.com/photo/2014/05/18/11/25/pizza-346985_960_720.jpg';
+        }
+
+        var estructura = ('<div class="col s4 m4" id="' + elId +'"> <div class="card center-align">' +
+        '<img src="' + img + '">' + '<b>' + name +
+        '</b><p class="card-content"> ' + locality + '<i class="material-icons">restaurant</i></p>' +
+        '</div></div>');
+
+        $('.selectCity').append('<option value="'+ city +'" id="'+ cityId +'">'+ city +'</option>');
+
+        var map = {};
+        $('.selectCity option').each(function () {
+          if (map[this.value]) {
+            $(this).remove()
+          }
+          map[this.value] = true;
+        })
+
+        $(document).keypress(function(e) {
+          if(e.which == 13) {
+            var selectCity = $(".selectCity").val();
+            if (selectCity == city){
+              $('.list').append(estructura);
+            }
+          }
+
+          $('#'+ elId).click(function() {
+            $('#footer-fixed').empty();
+            $('#footer-fixed').append(`<div class="container">
+                <div class="row white-text center uppercase title">`+ name +` <i class="material-icons right-align">favorite</i></div>
+                <div class="row center white">
+                  <h6 class="orange-text">Address</h6>
+                  <p>` + address + `</p>
+                  <h6 class="orange-text">Price</h6>
+                  <p>`+ currency + cost +`</p>
+                  <h6 class="orange-text">Rating</h6>
+                  <p>` + rating +`</p>
+                </div>
+              </div>`)
+
+          });
+        });
+      });
+    })
+    .fail(function() {
+      console.log("error");
+    })
+  })
+});
 
 $( document).ready(function(){
 	 $(".button-collapse").sideNav();
-
-	 //toggle del boton login
-	 //toggle del boton login
-   $('#login').on('click',function(){
-      $('#log-In').toggle('slow');
-   });
-
-
-    $("#boton-guardar").click(function(e){
-
-        function isEmail(email) {
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-         return regex.test(email);
-        };
-        if ($("#name").val() == ""){
-            alert("ingrese nombre valido")
-        }
-
-        if ($("#email").val() == "") {
-
-            alert("ingresa tu email")
-        }
-
-        if (isEmail($("#email").val()) == false ) {
-            e.preventDefault();
-            alert("tu email no es valido")
-        
-        }
-        if ($("#pasword").val().length != 5) {
-            alert("tu clave debe ser de 5 digitos")
-        }
-
-         else {
-            e.preventDefault();
-            window.location = "index-search.html";
-        }
-    });
-
-});
-    
-$(document).ready(function(){    
-    $('#boton-guardar').click(function(){        
-        /*Captura de datos escrito en los inputs*/        
-        var nom = document.getElementById("name").value;
-        var mail = document.getElementById("email").value;
-        var pass = document.getElementById("pasword").value;
-
-        
-        /*Guardando los datos en el LocalStorage*/
-        localStorage.setItem("Nombre", nom);
-        localStorage.setItem("Correo", mail);
-        localStorage.setItem("contraseña", pass);
-     
-    window.location.href = "index-search.html";
-    });   
-});
-
-$(document).ready(function(){    
-    $('#boton-cargar').click(function(){        
-                                   
-        /*Obtener datos almacenados*/
-        var nombre = localStorage.getItem("Nombre");
-        var correo = localStorage.getItem("Correo"); 
-        var pasword = localStorage.getItem("Password"); 
-        var usuario = localStorage.getItem("Usuario");
-        var paswordLogin = localStorage.get("Contraseña");      
-       
-        /*Mostrar datos almacenados*/      
-        document.getElementById("nombre").innerHTML = nombre;
-        document.getElementById("correo").innerHTML = correo;  
-        document.getElementById("pasword").innerHTML = password; 
-        document.getElementById("usuario").innerHTML = usuario;
-        document.getElementById("passLogin").innerHTML = pass;
-
-        
-    });   
-});
-            
-$( document ).ready(function(){
-   $(".button-collapse").sideNav();
-})
