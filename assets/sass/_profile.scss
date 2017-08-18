@@ -1,0 +1,98 @@
+#sign-up{
+  margin:0px;
+  padding:0px;
+  background: #F2F4F4;
+}
+nav{
+  background-color: #F39C12!important;
+}
+.flecha{
+  padding: 0px 0px 0px 10px;
+}
+.nab{
+  position: relative;
+  top: 4px;
+}
+.hamburguesa{
+  position: relative;
+  top: -54px;
+}
+.titulo-sing{
+  color: #F39C12;
+  font-weight: 700; 
+
+}
+.input-color {
+  background: white !important;
+  border-bottom: 0px !important;
+  border-radius: 5px !important;
+}
+
+/*estilos imagen de perfil*/
+.and-img-profile{
+  max-height: 250px;
+  margin-left: 50px;
+
+}
+/*estilos boton editar "upload image"*/
+#btn-editImage{
+  font-size:30px;
+  color: white;
+  text-decoration: none;
+  margin-left:30%;
+  margin-top: 30px;
+
+}
+.and-subirimg-profile{
+  background-color: #F39C12!important;
+  color:white;
+  height:80px;
+  .and-inputsubirimg-profile{
+    margin-left:30%;
+  }
+  .and-btnFavoritos-profile{
+    font-size:30px;
+    color: white;
+    text-decoration: none;
+    margin-left:33%;
+  }
+}
+.and-datosUsuario-profile{
+  background-color:  #F2F4F4;
+  color:  #F39C12;
+  padding:20px;
+  .and-inputDatosUsuario-profile{
+    background-color:  white;
+    color:  #F39C12;
+    border-radius:5px;
+    padding:0;
+    height:40px;
+    border-color: #F2F4F4;
+    p{
+      font-weight: bold;
+      font-size: 16px;
+    }
+    
+  }
+  h5{
+    padding-top: 60px;
+    color:#424242;
+    margin-bottom: 30px;
+  }
+}
+.and-divFavoritos-profile{
+  background-color:white;
+  height: 100px;
+  padding: 10px;
+  padding-top: 20px;
+  margin-bottom: 20px;
+  .and-btnFaviritos-profile{
+  background-color:#F39C12;
+  text-decoration:none;
+  color:white;
+  padding: 12px;
+  border-radius:4px;
+  font-size:10px;
+  margin-right: 6px;
+}
+}
