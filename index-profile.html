@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Tasty food</title>
+	<!-- Viewport -->
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<!-- Icon -->
+	<link rel="icon" type="image/png" href="assets/img/icon.png"/>
+	<!-- Pagination Materialize -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!-- Css -->
+	<link rel="stylesheet" type="text/css" href="dist/css/style.min.css">
+</head>
+<body>
+	<!-- INICIO NAV -->
+  <nav>
+      <div class="nav-wrapper">
+          <a href="index-welcome.html"><i class="material-icons flecha">keyboard_backspace</i></a>
+          <a href="#!" class="brand-logo titulo-sing nab">PROFILE</a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse right hamburguesa"><i class="material-icons">menu</i></a>
+          <ul class="side-nav" id="mobile-demo">
+              <li><a href="index-welcome.html">WELCOME</a></li>
+              <li><a href="index-search.html">SEARCH</a></li>
+              <li><a href="index-discover.html">DISCOVER</a></li>
+              <li><a href="index-profile.html">PROFILE</a></li>
+          </ul>
+      </div>
+  </nav>
+	<!-- FIN NAV -->
+  <!-- INICIO SECCIÓN IMAGEN -->
+    <div class="col s12 m12 center">
+        <img src="dist/img/user_male_2.png" id="tableBanner" class="col s11 offset-s4 and-img-profile responsive-img"  />
+    </div>
+    
+    <div id="res"></div>
+    <div class="col s12 and-subirimg-profile"> 
+        <a href="#" id="btn-editImage"><strong class="center-align">Upload Image</strong></a>
+        <input type="file" id="btnSubir" class="and-inputsubirimg-profile" />
+    </div>
+  <!-- FIN SECCIÓN IMAGEN -->
+  <!-- INICIO SECCIÓN DATOS USUARIO -->
+  <div class="col s12 and-datosUsuario-profile">
+    <div class="and-inputDatosUsuario-profile">
+        <p class="center-align">Nombre Usuario</p>
+    </div>
+    <div class="and-inputDatosUsuario-profile" >
+        <p class="center-align">correousuario@gmail.com</p>
+    </div>
+    <div>
+      <h5 class="center-align">FAVORITES</h5>
+    </div>
+    <div>
+      <div class=" col s12 center-align and-divFavoritos-profile">
+          <a href="" class= " col s4 and-btnFaviritos-profile">LE BISTROT</a>
+          <a href="" class=" col s4 and-btnFaviritos-profile">MONTREAL</a>
+          <a href="" class="col s4 and-btnFaviritos-profile">WAN TAI</a>
+      </div>
+  
+    </div>
+    
+  </div>
+  <!-- FIN SECCIÓN DATOS USUARIO -->
+
+
+   <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  
+	<script src="dist/js/script.js"></script>
+ 
+  <script src="assets/js/profile.js"></script>
+
+
+
+	<script src="https://use.fontawesome.com/046c2163eb.js"></script>
+</body>
