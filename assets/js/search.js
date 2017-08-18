@@ -1,9 +1,77 @@
-$(document).ready(function(){
-  ajax({
-    url: "https://developers.zomato.com/api/v2.1/categories",
-    beforeSend: function( req ) {
-      req.setRequestHeader(name,value);
-    }
-  })
+// SEARCH
+var myUrl = 'https://developers.zomato.com/api/v2.1/search?entity_id=';
+var key = '82734c090e0f0e10ad946c6239e028bb';
+var cityCode = ['67','73','83','97','257','280'];
 
+$(document).ready(function(){
+  cityCode.forEach(function(el){
+    $.ajax({
+      url: myUrl + el + '&entity_type=city&apikey=' + key,
+      type: 'GET',
+      dataType: 'json'
+      //data: {param1: 'value1'},
+    })
+    .done(function(res){
+      res.restaurants.forEach(function(el){
+        var name = el.restaurant.name;
+        var img = el.restaurant.thumb;
+        var elId = el.restaurant.id;
+        var type = el.restaurant.cuisines;
+        var city = el.restaurant.location.city;
+        var cityId = el.restaurant.location.city_id;
+        var address = el.restaurant.location.address;
+        var locality = el.restaurant.location.locality;
+        var currency = el.restaurant.currency;
+        var cost = el.restaurant.average_cost_for_two;
+        var rating = el.restaurant.user_rating.aggregate_rating;
+
+        if(img == ""){
+          img = 'https://cdn.pixabay.com/photo/2014/05/18/11/25/pizza-346985_960_720.jpg';
+        }
+
+        var estructura = ('<div class="col s4 m4" id="' + elId +'"> <div class="card center-align">' +
+        '<img src="' + img + '">' + '<b>' + name +
+        '</b><p class="card-content"> ' + locality + '<i class="material-icons">restaurant</i></p>' +
+        '</div></div>');
+
+        $('.selectCity').append('<option value="'+ city +'" id="'+ cityId +'">'+ city +'</option>');
+
+        var map = {};
+        $('.selectCity option').each(function () {
+          if (map[this.value]) {
+            $(this).remove()
+          }
+          map[this.value] = true;
+        })
+
+        $(document).keypress(function(e) {
+          if(e.which == 13) {
+            var selectCity = $(".selectCity").val();
+            if (selectCity == city){
+              $('.list').append(estructura);
+            }
+          }
+
+          $('#'+ elId).click(function() {
+            $('#footer-fixed').empty();
+            $('#footer-fixed').append(`<div class="container">
+                <div class="row white-text center uppercase title">`+ name +` <i class="material-icons right-align">favorite</i></div>
+                <div class="row center white">
+                  <h6 class="orange-text">Address</h6>
+                  <p>` + address + `</p>
+                  <h6 class="orange-text">Price</h6>
+                  <p>`+ currency + cost +`</p>
+                  <h6 class="orange-text">Rating</h6>
+                  <p>` + rating +`</p>
+                </div>
+              </div>`)
+
+          });
+        });
+      });
+    })
+    .fail(function() {
+      console.log("error");
+    })
+  })
 });
