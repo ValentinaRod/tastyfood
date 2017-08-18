@@ -20297,6 +20297,24 @@ $( document).ready(function(){
         }
     });
 
+    $("#guardar-login").click(function(e){
+        
+
+        if ($("#usuario").val() == ""){
+            alert("ingrese usuario valido")
+        }
+
+        if ($("#pass").val().length != 5) {
+            alert("tu clave debe ser de 5 digitos")
+        }
+
+         else {
+            e.preventDefault();
+            window.location = "index-search.html";
+        }
+    });
+
+
 });
     
 $(document).ready(function(){    
@@ -20305,12 +20323,15 @@ $(document).ready(function(){
         var nom = document.getElementById("name").value;
         var mail = document.getElementById("email").value;
         var pass = document.getElementById("pasword").value;
+        var usuarioLogin = document.getElementById("usuario").value;
+        var passLogin = document.getElementById("pass").value;
 
         
         /*Guardando los datos en el LocalStorage*/
         localStorage.setItem("Nombre", nom);
         localStorage.setItem("Correo", mail);
         localStorage.setItem("contraseña", pass);
+        localStorage.setItem("Usuario", user);
      
     window.location.href = "index-search.html";
     });   
@@ -20336,6 +20357,21 @@ $(document).ready(function(){
         
     });   
 });
+
+$(document).ready(function(){
+
+        var name = localStorage.getItem("nom");
+        var correo = localStorage.getItem("mail");
+        var contrasenia = localStorage.getItem("pass");
+        var usuario = localStorage.getItem("user");
+
+        $("#nombre-profile").append(name);
+        $("#email-profile").append(correo);
+        $('#usuario-profile').append(user);
+        
+    });
+        
+
             
 $( document ).ready(function(){
    $(".button-collapse").sideNav();
