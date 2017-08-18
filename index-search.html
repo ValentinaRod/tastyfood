@@ -3,7 +3,6 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
-
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="dist/css/style.min.css">
   <title>Tasty Food</title>
@@ -11,7 +10,17 @@
 <body>
   <header class="container-flex">
     <nav>
-
+      <div class="nav-wrapper">
+        <a href=""><i class="material-icons flecha">keyboard_backspace</i></a>
+        <a href="#!" class="brand-logo titulo-sing nab">SEARCH</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse right hamburguesa"><i class="material-icons">menu</i></a>
+        <ul class="side-nav" id="mobile-demo">
+          <li><a href="index-welcome.html">WELCOME</a></li>
+          <li><a href="index-search.html">SEARCH</a></li>
+          <li><a href="index-discover.html">DISCOVER</a></li>
+          <li><a href="index-profile.html">PROFILE</a></li>
+        </ul>
+      </div>
     </nav>
     <select class="selectCity browser-default">
       <option selected disabled>City</option>
@@ -21,6 +30,9 @@
     <div class="container">
       <div class="row list">
         <!-- Contenido desde js -->
+      </div>
+      <div class="row list2">
+
       </div>
     </div>
   </section>

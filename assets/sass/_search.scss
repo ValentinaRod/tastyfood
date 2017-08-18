@@ -7,6 +7,31 @@ header{
    }
 }
 
+nav{
+ background-color: #F39C12!important;
+}
+.flecha{
+ padding: 0px 0px 0px 10px;
+}
+.nab{
+ position: relative;
+ top: 4px;
+}
+.hamburguesa{
+ position: relative;
+ top: -54px;
+}
+.titulo-sing{
+ color: #F39C12;
+ font-weight: 700;
+}
+.input-color {
+ background: white !important;
+ border-bottom: 0px !important;
+ border-radius: 5px !important;
+}
+
+
 .uppercase{
   text-transform: uppercase;
 }
@@ -64,4 +89,10 @@ footer{
   p{
     margin: 0;
   }
+}
+
+#sign-up{
+ margin:0px;
+ padding:0px;
+ background: #F2F4F4;
 }

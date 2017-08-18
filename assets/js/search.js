@@ -4,6 +4,8 @@ var key = '82734c090e0f0e10ad946c6239e028bb';
 var cityCode = ['67','73','83','97','257','280'];
 
 $(document).ready(function(){
+  $(".button-collapse").sideNav();
+
   cityCode.forEach(function(el){
     $.ajax({
       url: myUrl + el + '&entity_type=city&apikey=' + key,
@@ -29,10 +31,13 @@ $(document).ready(function(){
           img = 'https://cdn.pixabay.com/photo/2014/05/18/11/25/pizza-346985_960_720.jpg';
         }
 
-        var estructura = ('<div class="col s4 m4" id="' + elId +'"> <div class="card center-align">' +
-        '<img src="' + img + '">' + '<b>' + name +
-        '</b><p class="card-content"> ' + locality + '<i class="material-icons">restaurant</i></p>' +
-        '</div></div>');
+        var estructura = (`<div class="col s4 m4" id="` + elId +`">
+                            <div class="card center-align">
+                              <img src="` + img + `">
+                              <b>` + name + `</b>
+                              <p class="card-content">` + locality + `<i class="material-icons">restaurant</i></p>
+                            </div>
+                          </div>`);
 
         $('.selectCity').append('<option value="'+ city +'" id="'+ cityId +'">'+ city +'</option>');
 
@@ -65,7 +70,6 @@ $(document).ready(function(){
                   <p>` + rating +`</p>
                 </div>
               </div>`)
-
           });
         });
       });
